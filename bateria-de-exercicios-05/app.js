@@ -29,7 +29,7 @@ const objs = [
   { x: 7, y: 8 }
 ]
 
-objs[4].x
+objs[3].x
 
 /*
 02
@@ -44,15 +44,15 @@ Após consertar, a expressão deve retornar o caractere w.
 
 const obj = {
   x: () => 'y',
-  y: function () { 
-    'w'
+  z: function () { 
+    return 'w'
   },
   w () { 
     return 'x'
   }
 }
 
-obj.z()
+obj.w()
 
 /*
 03
@@ -65,7 +65,11 @@ ser um valor diferente do anterior.
 
 Faça com que uma das invocações retorne true.
 */
+const itsNull = (value) => value === null
 
+itsNull('oi')
+itsNull(4)
+itsNull(null)
 /*
 04
 
@@ -81,7 +85,16 @@ preenchidos, a função deve retornar a string abaixo:
 3. O retorno da função deve ser a multiplicação dos 3 
 argumentos.
 */
+const multiply = (a, b, c) => {
+  if (a === undefined || b === undefined || c === undefined) {
+    return "Insirt all the arguments"
+  }
+  
+  return a * b * c
+}
 
+multiply(1, 2, 2)
+multiply(1, 2)
 /*
 05
 
@@ -100,20 +113,17 @@ função.
 */
 
 const y = w => {
-  if (w[2] === false) {
-    if ('b' === w[0]) {
-      if (w[1] === 3) {
-        // console.log('Executou if!')
-      }
-    }
+  if (w[2] === false || 'b' === w[0] || w[1] === 3) {
+    return 'Executou if!'
   }
+
 }
 
 const a = 'b'
 const b = false
 const c = 3
 
-y([a, c, b])
+console.log(y([a, c, b]))
 
 /*
 06
