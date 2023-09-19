@@ -147,7 +147,34 @@ false.
 6. E ainda, se nenhuma das condições acima forem atendidas, 
 retorne null.
 */
+const isUndefined = arg => arg === undefined
 
+const obteinValues = (argument1, argument2, argument3) => {
+  const onlyArgument1 = argument1 != undefined && isUndefined(argument2) && isUndefined(argument3)
+  const onlyArgument1And2 = argument1 != undefined && argument2 != undefined && isUndefined(argument3)
+  const allArguments = isUndefined(argument1) && isUndefined(argument2) && isUndefined(argument3)
+  /* Temo aqui uma exemplo de abstração e refatoração para aumentar a legibilidade do código, o último é como
+  era no início. */
+  if (onlyArgument1) {
+    return argument1
+  }
+
+  if (onlyArgument1And2) {
+    return argument1 + argument2
+  }
+
+  if (allArguments) {
+    return argument1 + argument3
+  }
+
+  if (isUndefined(argument1) && isUndefined(argument2) && isUndefined(argument3)) {
+    return false
+  }
+
+  return null
+}
+
+console.log(obteinValues(1,2))
 /*
 07
 
