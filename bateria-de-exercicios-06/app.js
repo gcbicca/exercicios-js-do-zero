@@ -25,9 +25,9 @@ invocação da função eUndefined.
 const eUndefined = arg => arg === undefined
 
 const somar = (arg1, arg2, arg3) => {
-  const temSoArg1 = arg1 !== undefined && eUndefined(arg2) && eUndefined(arg3)
-  const temSoArg1E2 = arg1 !== undefined && arg2 !== undefined && eUndefined(arg3)
-  const temTodosArgs = arg1 !== undefined && arg2 !== undefined && arg3 !== undefined
+  const temSoArg1 = !eUndefined(arg1) && eUndefined(arg2) && eUndefined(arg3)
+  const temSoArg1E2 = !eUndefined(arg1) && !eUndefined(arg2) && eUndefined(arg3)
+  const temTodosArgs = !eUndefined(arg1) && !eUndefined(arg2) && !eUndefined(arg3)
   const temNenhumArg = eUndefined(arg1) && eUndefined(arg2) && eUndefined(arg3)
 
   if (temSoArg1) {
@@ -49,11 +49,7 @@ const somar = (arg1, arg2, arg3) => {
   return null
 }
 
-somar(1)
-somar(1, 2)
-somar(1, 2, 3)
-somar()
-somar(undefined, 1, 2)
+
 
 /*
 02
@@ -81,22 +77,37 @@ const concursos = [
   { id: 'd687jsfke', nome: 'Concurso Programadores Garotos de Programa' },
 ]
 
+const getNameCompetitions = (identifier) => {
+  for (let i = 0; i < concursos.length; i++) {
+    if (concursos[i].id == identifier) { 
+      return concursos[i].nome;
+    } 
+    // return "Competition not found" não pode ser dentro do for por causa da indenteção, pois se ele
+    // nao achar no primeiro vai tertonar a string
+  }
+  return "Competition not found"
+}
+
+// for (let i = 0; i < concursos.length; i++) {
+//   console.log(getNameCompetitions(concursos[i].id))
+// }
 /*
 03
 
 Refatore a função abaixo para apenas uma única linha.
 */
 
-const eAMelhorSerie = serie => {
-  if (serie === 'Breaking Bad') {
-    return '✅ Sim'
-  }
+// const eAMelhorSerie = serie => {
+//   if (serie === 'Breaking Bad') {
+//     return '✅ Sim'
+//   }
   
-  return '❌ Não'
-}
+//   return '❌ Não'
+// }
 
-eAMelhorSerie('Breaking Bad')
-eAMelhorSerie('Game of Thrones')
+const eAMelhorSerie = (serie) => serie === 'Breaking Bad' ? '✅ Sim' : '❌ Não'
+
+
 
 /*
 04
@@ -124,6 +135,14 @@ const custos = [
   { mes: 'abril', custoTotal: 6325 },
   { mes: 'maio', custoTotal: 6748 },
 ]
+const calcMeanCosts = (cost) => {
+  let tot = 0
+  for (let i = 0; i < cost.length; i++) {
+    tot = tot + cost[i].custoTotal
+  }
+  return tot / cost.length
+}
+
 
 /*
 05
@@ -139,6 +158,17 @@ Teste a função utilizando o array abaixo.
 
 const palavras = ['ovo', 'áudio', 'oi', 'telefones', 'ovni']
 
+const showWordsLength3 = (array) => {
+  const wordsLength3 = []
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].length > 3) {
+      wordsLength3.push(array[i])
+    }
+  }
+  return wordsLength3
+}
+
+showWordsLength3(palavras)
 /*
 06
 
@@ -161,8 +191,9 @@ const dobrar = numeros => {
 
   for (let i = 0; i < numeros.length; i++) {
     numerosDobrados.push(numeros[i] * 2)
-    return numerosDobrados
+    
   }
+  return numerosDobrados
 }
 
-// console.log(dobrar([1, 2, 3]))
+console.log(dobrar([1, 2, 3]))
