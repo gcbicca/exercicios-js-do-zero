@@ -42,11 +42,17 @@ const person = {
 
 const person2 = {
   ...person,
+  address: {...person.address//, street: 'Rua Rio de Janeiro
+},
   name: 'Joana Cruz'
 }
 
 person2.address.street = 'Rua Rio de Janeiro'
 
+// console.log(person.address.street === person2.address.street)
+// console.log(person.address === person2.address)
+// console.log(person.address.street)
+// console.log(person2.address.street)
 /*
 02
 
@@ -73,6 +79,18 @@ const getHeroes = () => [
   { name: 'Spider-Man', realName: 'Peter Parker', gender: 'Male' }
 ]
 
+const getMessage = (arr) => {
+  let message = ''
+  for (let i = 0; i < arr.length; i++) {
+    const preposition = gender === 'Male' ? 'do' : 'da'
+    const heroGender = gender === 'Male' ? 'herói' : 'heroína'
+    const getHero = ({ name, realName, gender}) => `O nome ${preposition} ${heroGender} no ${i + 1}º item é ${name}, e seu nome verdadeiro é ${realName}.\n`
+    message += getHero(arr[i])
+  }
+  return message
+}
+// const heros = getHeroes() aqui eu iria guardar na variavel o retorno da função
+// console.log(getMessage(getHeroes()))
 /*
 03
 
@@ -86,7 +104,24 @@ Evite a repetição de "arr[index]" em seu código.
 */
 
 const objs = [{ id: 3, code: 31 }, { id: 7, code: 21 }]
+const multiply = ([{id}, {code}]) => id * code
+// const multiply = (obj) => {
+//   let valueIdObj1 = 0
+//   let valueCodeObj2 = 0
+//   obj.forEach(({ id, code }, i) => {
+//     if (i === 0 && id !== undefined) {
+//       valueIdObj1 = id
+//     } 
+//     if (i === 1 && code !== undefined) {
+//       valueCodeObj2 = code
+//     }
+//   })
 
+//   return valueCodeObj2 * valueIdObj1
+// }
+// const multiply = ([obj1, obj2]) => obj1.id * obj2.code
+// const multiply = arr => arr[0].id * arr[1].code
+// console.log(multiply(objs))
 /*
 04
 
@@ -106,10 +141,11 @@ const getfruitBenefits = fruit => {
     uva: 'Rica em carboidratos, altamente energética.'
   }
 
-  return fruits.fruit || 'Não há informações da fruta =/'
+  return fruits[fruit] || 'Não há informações da fruta =/' // acessar as propriedade de forma dinâmica com colchetes
 }
 
 const benefits = getfruitBenefits('uva')
+// console.log(benefits)
 
 /*
 05
@@ -134,7 +170,7 @@ const updateInfo = product => {
   const action = name.includes('size-') ? 'UPDATE_SIZE' : 'UPDATE_FIELD'
   const fieldName = name.includes('size-') ? name.replace('size-', '') : name
 
-  return { type: action, payload: { fieldName: value } }
+  return { type: action, payload: { [fieldName]: value } } // criando um objeto, e a propriedade recebe o nome do valor da variavel.
 }
 
 const product = updateInfo({ 
@@ -143,6 +179,8 @@ const product = updateInfo({
     value: 'Jaqueta Trucker Jeans Com Recortes E Forro De Sherpa Azul Claro' 
   }
 })
+
+// console.log(product)
 
 /*
 06
@@ -153,22 +191,18 @@ fizemos anteriormente.
 Renomeie o que está em português para inglês.
 */
 
-const pegaRespostasUsuario = () => ['A', 'B', 'A', 'D']
+const getAnswerUser = () => ['A', 'B', 'A', 'C']
 
-const pegaPontuacao = respostasUsuario => {
-  const ultimaResposta = respostasUsuario[3]
-
-  if (ultimaResposta === 'A') {
-    return 50
-  } else if (ultimaResposta === 'C') {
-    return 25
-  } else {
-    return 100
-  }
+const getScore = answerUser => {
+  const lastAnswer = answerUser[answerUser.length - 1]
+  const score = { A: 50, C: 25 }
+  return score[lastAnswer] || 100
+  // return { A: 50, C: 25 }[lastAnswer] || 100
 }
 
-const respostasUsuario = pegaRespostasUsuario()
-const pontuacao = pegaPontuacao(respostasUsuario)
+const answerUser = getAnswerUser()
+const score = getScore(answerUser)
+console.log(score)
 
 /*
 07
